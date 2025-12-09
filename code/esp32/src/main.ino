@@ -1,9 +1,9 @@
 #include <Arduino.h>
-#include "lib/defs.h"
-#include "lib/conn.h"
-#include "lib/ws.h"
-#include "lib/drive.h"
-#include "lib/sensors.h"
+#include "../lib/defs.h"
+#include "../lib/conn.h"
+#include "../lib/ws.h"
+#include "../lib/drive.h"
+#include "../lib/sensors.h"
 
 void setup() {
   // Inicialização da serial

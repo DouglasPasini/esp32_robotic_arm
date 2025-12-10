@@ -51,6 +51,7 @@ async def route_message(websocket, data):
         print(f"[WARN] Tipo de mensagem desconhecido: {msg_type}")
 
 
+
 # --- Handlers por Tipo de Mensagem ---
 
 async def handle_client_identification(websocket, data):
@@ -68,6 +69,12 @@ async def handle_generic_joint(websocket, data):
         for esp in esp_clients:
             await esp.send(json.dumps(data))
 
+async def handle_sensor_state(websocket,data):
+    # Handler que apenas repassa o valor do sensor para a web
+    # Apenas o ESP deve enviar essas mensagens
+    if websocket in esp_clients:
+        for web in web_clients:
+            await web.send(json.dumps(data))
 
 # mapa de handlers
 message_handlers = {
@@ -77,7 +84,8 @@ message_handlers = {
     "joint4": handle_generic_joint,
     "joint3": handle_generic_joint,
     "joint2": handle_generic_joint,
-    "base": handle_generic_joint
+    "base": handle_generic_joint,
+    "sensor": handle_sensor_state
 }
 
 

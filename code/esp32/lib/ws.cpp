@@ -122,6 +122,16 @@ void onMessageCallback(WebsocketsMessage message) {
   else if (strcmp(type, "gripper") == 0) handleGripper(obj);
 }
 
+void sendSensor(const char *id, int state) { // função que envia estado do sensor
+    StaticJsonDocument<128> doc;
+    doc["type"] = "sensor";
+    doc["sensor"] = id;
+    doc["state"] = state;
+    String json;
+    serializeJson(doc, json);
+    webSocket.send(json);
+}
+
 // --- Loop ---
 
 void webSocketRun() {
